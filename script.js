@@ -1,35 +1,8 @@
 // Arrays of chars
-var numbersArray = ["0", "1", "2", "3", "4", "5", "6", "7"];
-var upperArray = ["A", "B", "C", "D", "E", "F", "G", "H", "I"];
-var lowerArray = ["a", "b", "c", "d", "e", "f", "g", "h", "i"];
-var specialArray = ["!", "@", "#", "$", "%", "&", "*"];
-
-function getUserInputs() {
-  var lowerArray = confirm("add some lower case letters");
-  if (lowerArray) {
-    password += lowerArray;
-  }
-}
-
-var numbersArray = confirm("add some numbers");
-if (numbersArray) {
-  password += numbersArray;
-}
-
-var upperArray = confirm("add some uppercase letters");
-if (upperArray) {
-  password += upperArray;
-}
-
-var specialArray = confirm("add some special characters");
-if (specialArray) {
-  password += specialArray;
-}
-
-for (var i = 0; i < password; i++) {
-  passwordLength +=
-    password[Math.floor(Math.random() * password.passwordLength)];
-}
+var numbersArray = "0123456789";
+var upperArray = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+var lowerArray = "abcdefghijklmnopqrstuvwxyz";
+var specialArray = "!@#$%^&*()";
 
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
@@ -67,8 +40,48 @@ function generatePassword() {
   var passwordOptions = getUserInputs();
   console.log("In generatePassword. Here are the passwordOptions");
   console.log(passwordOptions);
-
-  //return password
+  var randomPassword = "";
+  if (
+    passwordOptions.includeNumbers &&
+    passwordOptions.includeSpecial &&
+    passwordOptions.includeUppercase &&
+    passwordOptions.includeLowercase
+  ) {
+    console.log("includes numbers works");
+    randomPassword += numbersArray;
+    randomPassword += lowerArray;
+    randomPassword += upperArray;
+    randomPassword += specialArray;
+    console.log(randomPassword);
+  } else if (
+    passwordOptions.includeSpecial &&
+    passwordOptions.includeNumbers &&
+    passwordOptions.includeUppercase
+  ) {
+    console.log("includes special works");
+    randomPassword += specialArray;
+    randomPassword += numbersArray;
+    randomPassword += upperArray;
+  } else if (
+    passwordOptions.includeLowercase &&
+    passwordOptions.includeNumbers &&
+    passwordOptions.includeUppercase
+  ) {
+    randomPassword += lowerArray;
+    randomPassword += numbersArray;
+    randomPassword += upperArray;
+  }
+  randomPassword;
+  console.log(randomPassword);
+  randomPassword = randomPassword.split("");
+  var password = "";
+  for (let i = 0; i < parseInt(passwordOptions.passwordLength); i++) {
+    const element = randomPassword[i];
+    console.log(element);
+    password +=
+      randomPassword[Math.floor(Math.random() * randomPassword.length)];
+  }
+  return password;
 }
 
 // Write password to the #password input
